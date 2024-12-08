@@ -1,0 +1,54 @@
+<template>
+    <lightning-card title="Borrowing Dashboard" icon-name="utility:chart">
+        <!-- Loading State -->
+        <template if:true={isLoading}>
+            <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </template>
+
+        <!-- Error Display -->
+        <template if:true={error}>
+            <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error slds-var-m-bottom_medium">
+                {error}
+            </div>
+        </template>
+
+        <!-- Dashboard Content -->
+        <div class="slds-var-p-around_medium">
+            <!-- Statistics Cards -->
+            <div class="slds-grid slds-gutters slds-wrap">
+                <div class="slds-col slds-size_1-of-3 slds-var-p-bottom_medium">
+                    <div class="slds-box slds-theme_default slds-text-align_center">
+                        <div class="slds-text-heading_medium">Total Borrowed</div>
+                        <div class="slds-text-heading_large">{totalBorrowed}</div>
+                    </div>
+                </div>
+                <div class="slds-col slds-size_1-of-3 slds-var-p-bottom_medium">
+                    <div class="slds-box slds-theme_default slds-text-align_center">
+                        <div class="slds-text-heading_medium">Overdue Items</div>
+                        <div class="slds-text-heading_large">{overdueItems}</div>
+                    </div>
+                </div>
+                <div class="slds-col slds-size_1-of-3 slds-var-p-bottom_medium">
+                    <div class="slds-box slds-theme_default slds-text-align_center">
+                        <div class="slds-text-heading_medium">Available Items</div>
+                        <div class="slds-text-heading_large">{availableItems}</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="slds-grid slds-gutters slds-wrap slds-var-m-top_medium">
+                <div class="slds-col slds-size_1-of-2">
+                    <div class="chart-container" style="position: relative; height:300px; width:100%">
+                        <canvas class="mostBorrowedChart"></canvas>
+                    </div>
+                </div>
+                <div class="slds-col slds-size_1-of-2">
+                    <div class="chart-container" style="position: relative; height:300px; width:100%">
+                        <canvas class="topBorrowersChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </lightning-card>
+</template>

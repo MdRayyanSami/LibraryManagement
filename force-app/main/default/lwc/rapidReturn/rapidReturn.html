@@ -1,0 +1,57 @@
+<template>
+    <lightning-card title="Rapid Return" icon-name="utility:return">
+        <div class="slds-var-p-around_medium">
+            <!-- Borrower Email Input -->
+            <lightning-input
+                type="email"
+                label="Borrower Email"
+                value={borrowerEmail}
+                onchange={handleEmailChange}
+                onkeypress={handleKeyPress}
+                class={computeEmailClass}>
+            </lightning-input>
+
+            <!-- Suggestions Dropdown -->
+            <template if:true={borrowerSuggestions}>
+                <ul class="slds-box slds-box_x-small slds-theme_default suggestion-box">
+                    <template for:each={borrowerSuggestions} for:item="borrower">
+                        <li 
+                            key={borrower.Id} 
+                            data-value={borrower.Borrower_Email__c} 
+                            class="suggestion-item" 
+                            onclick={handleBorrowerSelect}>
+                            {borrower.Name} - {borrower.Borrower_Email__c}
+                        </li>
+                    </template>
+                </ul>
+            </template>
+            <template if:true={emailError}>
+                <div class="slds-text-color_error slds-var-m-top_x-small">Invalid email address</div>
+            </template>
+
+            <!-- Barcode Input -->
+            <lightning-input
+                type="text"
+                label="Enter Barcode"
+                value={barcode}
+                onchange={handleBarcodeChange}
+                onkeypress={handleKeyPress}>
+            </lightning-input>
+
+            <!-- Return Timeliness -->
+            <template if:true={returnInfo}>
+                <div class="slds-var-m-top_small slds-box slds-theme_shade">
+                    <p>{returnInfo}</p>
+                </div>
+            </template>
+
+            <!-- Return Button -->
+            <lightning-button 
+                label="Return Item"
+                variant="brand"
+                onclick={handleReturn}
+                disabled={isButtonDisabled}>
+            </lightning-button>
+        </div>
+    </lightning-card>
+</template>

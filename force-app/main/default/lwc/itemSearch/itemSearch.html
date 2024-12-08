@@ -1,0 +1,46 @@
+<template>
+  <lightning-card title="Library Item Search" icon-name="utility:search">
+      <div class="slds-var-m-around_medium">
+          <!-- Search Inputs -->
+          <lightning-input
+              label="Search by Item Name"
+              value={searchKey}
+              onchange={handleSearchKeyChange}
+          ></lightning-input>
+
+          <lightning-combobox
+              label="Filter by Item Type"
+              placeholder="Select Item Type"
+              options={itemTypeOptions}
+              value={selectedItemType}
+              onchange={handleItemTypeChange}
+          ></lightning-combobox>
+
+          <lightning-combobox
+              label="Filter by Status"
+              placeholder="Select Status"
+              options={statusOptions}
+              value={selectedStatus}
+              onchange={handleStatusChange}
+          ></lightning-combobox>
+
+          <lightning-button
+              label="Search"
+              variant="brand"
+              onclick={handleSearch}
+          ></lightning-button>
+      </div>
+
+      <!-- Search Results -->
+      <template if:true={libraryItems}>
+          <lightning-datatable
+              key-field="Id"
+              data={libraryItems}
+              columns={columns}
+          ></lightning-datatable>
+      </template>
+      <template if:false={libraryItems}>
+          <p>No records found. Try refining your search.</p>
+      </template>
+  </lightning-card>
+</template>

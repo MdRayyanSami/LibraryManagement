@@ -1,0 +1,35 @@
+<template>
+    <lightning-card title="Librarian Assistant" icon-name="utility:bot">
+        <div class="slds-var-p-around_medium">
+            <!-- Display Chat Messages -->
+            <div class="chat-container slds-var-m-bottom_medium">
+                <template for:each={messages} for:item="message">
+                    <div key={message.id} class={message.type} style={message.style}>
+                        <p class="slds-var-p-around_x-small">{message.text}</p>
+                    </div>
+                </template>
+            </div>
+            
+            <!-- Input Container -->
+            <div class="slds-grid slds-gutters slds-grid_vertical-align-center">
+                <div class="slds-col slds-size_4-of-5">
+                    <lightning-input
+                        type="text"
+                        placeholder="Hi, I am your AI Assistant..."
+                        value={userInput}
+                        onchange={handleInputChange}
+                        onkeyup={handleKeyPress}>
+                    </lightning-input>
+                </div>
+                <div class="slds-col slds-size_1-of-5">
+                    <lightning-button 
+                        variant="brand"
+                        label="Send" 
+                        onclick={handleSendMessage}
+                        class="slds-var-m-left_x-small">
+                    </lightning-button>
+                </div>
+            </div>
+        </div>
+    </lightning-card>
+  </template>

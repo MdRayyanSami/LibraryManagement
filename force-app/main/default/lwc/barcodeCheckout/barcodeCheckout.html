@@ -1,0 +1,65 @@
+<template>
+    <lightning-card title="Rapid Checkout">
+        <div class="slds-var-m-around_medium">
+            <form onsubmit={handleSubmit}>
+                <!-- Borrower Email Input -->
+                <lightning-input
+                type="email"
+                label="Borrower Email"
+                value={borrowerEmail}
+                onchange={handleEmailChange}
+                onkeyup={handleKeyPress}
+                class={computeEmailClass}>
+            </lightning-input>
+
+                <!-- Suggestions Dropdown -->
+                <template if:true={borrowerSuggestions}>
+                    <ul class="slds-box slds-box_x-small slds-theme_default suggestion-box">
+                        <template for:each={borrowerSuggestions} for:item="borrower">
+                            <li 
+                                key={borrower.Id} 
+                                data-value={borrower.Borrower_Email__c} 
+                                class="suggestion-item" 
+                                onclick={handleBorrowerSelect}>
+                                {borrower.Name} - {borrower.Borrower_Email__c}
+                            </li>
+                        </template>
+                    </ul>
+                </template>
+                <template if:true={emailError}>
+                    <div class="slds-text-color_error slds-var-m-top_x-small">Invalid email address</div>
+                </template>
+
+                <!-- Barcode Input -->
+                <div class="slds-var-m-top_small">
+                    <lightning-input
+                        type="text"
+                        label="Enter Barcode"
+                        value={barcode}
+                        onchange={handleBarcodeChange}
+                        onkeypress={handleKeyPress}>
+                    </lightning-input>
+                </div>
+
+                <!-- Checkout Button -->
+                <div class="slds-var-m-top_small">
+                    <lightning-button 
+                        label="Checkout"
+                        variant="brand"
+                        onclick={handleCheckout}
+                        disabled={isButtonDisabled}>
+                    </lightning-button>
+                </div>
+            </form>
+
+            <!-- Borrower Info -->
+            <template if:true={borrowerInfo}>
+                <div class="slds-var-m-top_medium slds-box slds-theme_shade">
+                    <p><strong>Borrower:</strong> {borrowerInfo.Name}</p>
+                    <p><strong>Contact Number:</strong> {borrowerInfo.Phone_Number__c}</p>
+                    <p><strong>Borrowing Limit:</strong> {borrowerInfo.Borrowing_Limit__c}</p>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>
